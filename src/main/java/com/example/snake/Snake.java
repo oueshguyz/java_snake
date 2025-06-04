@@ -121,6 +121,7 @@ public class Snake extends Application {
             return;
         }
         if (etreDansSerpent(old_x + x_add,old_y+ y_add)) {
+            finPartie();
             return; // ne pas se déplacer sur la pomme
         }
         // serpent ne doit pas se déplacer contre un mur
@@ -175,6 +176,20 @@ public class Snake extends Application {
                 new_x = (int) (Math.random() * NB_COLONNES);
                 new_y = (int) (Math.random() * NB_LIGNES);
             }
+            // pomme ne doit pas être sur un mur
+            while (true) {
+                boolean surMur = false;
+                for (Rectangle mur : murs) {
+                    if (GridPane.getColumnIndex(mur) == new_x && GridPane.getRowIndex(mur) == new_y) {
+                        surMur = true;
+                        break;
+                    }
+                }
+                if (!surMur) break;
+                new_x = (int) (Math.random() * NB_COLONNES);
+                new_y = (int) (Math.random() * NB_LIGNES);
+            }
+
             GridPane.setColumnIndex(pomme, new_x);
             GridPane.setRowIndex(pomme, new_y);
             }
